@@ -161,7 +161,7 @@ Krw=[0,0.002,0.01,0.02,0.033,0.049,0.066,0.09,0.119,0.15,0.186,0.227,0.277,0.33,
 Sog=[]
 for i in range(len(So)):
     Sog.append(1-So[i])
-SS = np.arange(0., 1., 0.001)
+SS = np.arange(0., 1., 0.01)
 
 
 def perm_w(x):
@@ -299,7 +299,7 @@ plt.show()
 
 CC=[1]*len(SS)
 CC0=[0]*len(SS)
-
+"""
 plt.plot(So,Kro, 'ro',label='Kro expérimentale')
 plt.plot(SS,perm_o(SS,CC),'-r',label='fonction Kro')
 plt.xlabel('So')
@@ -406,7 +406,7 @@ ax2.tick_params(axis='y', labelcolor=color)
 ax2.legend()
 plt.show()
 
-
+"""
 ##############################################################################    
 def FFF(x,xx,vg,vo,MOBW,k):
     A=[]
@@ -423,13 +423,20 @@ def fg(krg,kro,vg,vo,MOBW,k):
 def F(x,xx,vg,vo,k):
     A=[]
     for i in range(len(x)):
-        A.append(1/(1+((perm_om(x,k)[i]*vg[i])/(perm_gm(xx,k)[i]*vo[i]))))
+        A.append(1/(1+((perm_om(x,k)[i]*vg)/(perm_gm(xx,k)[i]*vo))))
     return A
 
 def FC1(krg,kro,vg,vo,MOBW,k,cg,co):
     A=[]
     for i in range(len(krg)):
         A.append(fg(krg,kro,vg,vo,MOBW,k)[i]*cg[i]+(1-fg(krg,kro,vg,vo,MOBW,k)[i])*co[i])
+    return A
+def fC1(so,sg,vg,vo,k,cg,co):
+    A=[]
+    for i in range(len(so)):
+        #A.append(F(so,sg,vg,vo,k)[i]*cg+(1-F(so,sg,vg,vo,k)[i])*co)
+        #A.append(F(so,sg,vg,vo,k)[i]*cg+co-F(so,sg,vg,vo,k)[i]*co)
+        A.append(F(so,sg,vg,vo,k)[i]*(cg-co)+co)
     return A
 
 
@@ -457,6 +464,7 @@ CCmobw=[0]*len(SS)
 CCmobw=np.array(CCmobw)
 CC=np.array(CC)
 CC0=np.array(CC0)
+"""
 #############################################################################
 plt.plot(sgg,fg(krgg,kroo,mug,muo,mobw,km),'-r',label='fg 3 phase (eclips perméabilité) ')
 plt.plot(sgg,FFF(soo,sgg,mug,muo,mobw,km),'-b',label='fonction fg 3 phases')
@@ -506,15 +514,26 @@ plt.title("565m du puits d'injection")
 plt.legend()
 plt.axis([0, 1., 0, 1.])
 plt.show()
-
+"""
 #############################################################################
 #----------------------------------FC1---------------------------------------
 
 #Sg*c1g+So*c1o=cc1........Sg*c1g+(1-Sg)*c1o=cc1.......Sg*c1g+c1o-Sg*c1o=cc1
 #Sg(c1g-c1o)=cc1-c1o.........Sg=(cc1-c1o)/(c1g-c1o)
-plt.plot(cc1,FC1(krgg,kroo,mug,muo,mobw,km,c1g,c1o),'-b',label='fonction Fco2 424m')
-plt.plot(sgg,FC1(krgg,kroo,mug,muo,mobw,km,c1g,c1o),'-k',label='fonction Fco2 424mk')
-plt.plot(cc120,FC1(krgg20,kroo20,mug20,muo20,mobw20,km20,c1g20,c1o20),'-g',label='fonction Fco2 565m')
+#plt.plot(cc1,FC1(krgg,kroo,mug,muo,mobw,km,c1g,c1o),'-b',label='fonction Fco2 424m')
+c1gTD=[0.82]*len(SS)
+c1gTD=np.array(c1gTD)
+c1oTD=[0.73]*len(SS)
+c1oTD=np.array(c1oTD)
+#SgTD=(cc1TD-c1oTD)/(c1gTD-c1oTD)    fC1(so,sg,vg,vo,MOBW,k,cg,co)
+#FFF(1-SS,SS,CCmug,CCmuo,CCmobw,CC)
+def cc1TD(Sg,c1g,c1o):
+    A=[]
+    for i in range(len(SS)):
+        A.append(Sg[i]*c1g+c1o-Sg[i]*c1o)
+    return A
+plt.plot(cc1TD(SS,0.82,0.73),fC1(1-SS,SS,0.05,0.1,CC,0.82,0.73),'-b',label='fonction Fco2 424mk')
+#plt.plot(cc120,FC1(krgg20,kroo20,mug20,muo20,mobw20,km20,c1g20,c1o20),'-g',label='fonction Fco2 565m')
 plt.plot([0,1],[0,1],'-k')
 #plt.plot(cc120[51],FC1(soo20,sgg20,mug20,muo20,km20,c1o20,c1g20)[51],'*k',label='FC1 à 6323 psi')
 #plt.plot(cc120[153],FC1(soo20,sgg20,mug20,muo20,km20,c1o20,c1g20)[153],'*r',label='FC1 à 4947 psi')
