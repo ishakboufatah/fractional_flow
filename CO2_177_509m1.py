@@ -7,6 +7,8 @@ Created on Sat Jul 18 12:48:27 2020
 import numpy as np
 import openpyxl  as xl
 import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+import matplotlib.lines as lines
 F=xl.load_workbook('F.xlsx',data_only=True)
 
 #DATA= F['CO2_177_509m']
@@ -158,10 +160,32 @@ Krg=[0,0.005,0.013,0.026,0.04,0.058,0.078,0.1,0.126,0.156,0.187,0.222,0.26,0.3,0
 Sw=[0.16,0.2,0.24,0.28,0.32,0.36,0.4,0.44,0.48,0.52,0.56,0.6,0.64,0.68,0.72,0.76,0.8,0.84,0.88,0.92,0.96,1]
 Krw=[0,0.002,0.01,0.02,0.033,0.049,0.066,0.09,0.119,0.15,0.186,0.227,0.277,0.33,0.39,0.462,0.54,0.62,0.71,0.8,0.9,1]
 
+SS = np.arange(0., 1., 0.07)
+CC=[1]*len(SS)
+CC05=[0.5]*len(SS)
+CC0=[0]*len(SS)
+
+M01=[1]*len(SS)
+M10=[10]*len(SS)
+
+CCmuo=[0.1]*len(SS)
+CCmuo=np.array(CCmuo)
+CCmug=[0.05]*len(SS)
+CCmug=np.array(CCmug)
+CCmobw=[0]*len(SS)
+CCmobw=np.array(CCmobw)
+CC=np.array(CC)
+CC0=np.array(CC0)
+CC05=np.array(CC05)
+
+
+
+
+
 Sog=[]
 for i in range(len(So)):
     Sog.append(1-So[i])
-SS = np.arange(0., 1., 0.01)
+
 
 
 def perm_w(x):
@@ -206,7 +230,7 @@ def perm_o(x,K):
     KOR=np.array(KOR)
     
     perm=[]
-    for c in range(len(KOR)):
+    for c in range(len(x)):
         if x[c] < SOR[c]:
             perm_o=0
             #perm_o=0.8*((x[c]-y[c])/(1-y[c]-0.16))**2.8
@@ -214,16 +238,24 @@ def perm_o(x,K):
             #♠perm_o=0.8*((c-0.26)/(1-0.26-0.16))**1
             perm.append(perm_o)
         elif x[c] >= SOR[c]:
+            #perm_o=0.8*((x[c]-0.24)/(1-0.24-0.16))**2.8
             perm_o=0.8*((x[c]-SOR[c])/(1-SOR[c]-0.16))**2.4
             perm.append(perm_o)
-            #8perm_o=np.power(0.81*((x-0.24)/(1-0.24-0.16)),1)  
+            #if  np.isnan(perm_o):
+             #   perm.append(0)
+            #else:
+             #   perm.append(perm_o)
     return perm
-
+                
+                #8perm_o=np.power(0.81*((x-0.24)/(1-0.24-0.16)),1)  
+    
+"""
 def perm_om(x,k):
     SOR=[]
     for a in range(len(k)):
         SOR.append(k[a]*0.24)
-    #perm_om=perm_o(x)*(k)+(1-k)*x
+        
+   #perm_om=perm_o(x)*(k)+(1-k)*x
     
     perm_om=perm_o(x,k)*(k)+(1-k)*(x-SOR)    
     
@@ -242,7 +274,8 @@ def perm_om(x,k):
         SOR.append(k[a]*0.24)
     #perm_om=perm_o(x)*(k)+(1-k)*x
     for i in range(len(x)):
-        perm_om=perm_o(x,k)[i]*(k[i])+(1-k[i])*(x[i]-SOR[i])    
+        #perm_om=perm_o(x,k)[i]*(k[i])+(1-k[i])*(x[i]-SOR[i])   *1.06
+        perm_om=perm_o(x,k)[i]*(k[i])+(1-k[i])*((x[i]-SOR[i]))
     
     #perm_om=perm_o(x)*(k)+(0.64-k)*(x-0.04)*2
     
@@ -254,15 +287,55 @@ def perm_om(x,k):
     #perm_om=(x-0.23)*k+(1-k)*x*0.81
     return perm
 
+
+
+#æ=[]
+def perm_g1(x,K):
+    SGR=[]
+    for a in range(len(K)):
+        SGR.append(K[a]*0.04)
+    SGR=np.array(SGR)
+    perm=[]
+    for c in range(len(K)):
+        if x[c] < SGR[c]:
+            perm.append(0)
+        elif x[c] >= SGR[c]:
+            #perm_g=0.74*((x[c]-SGR[c])/(1-SGR[c]-0.16))**1.7
+            perm_g=0.74*((x[c]-0.04)/(1-0.04-0.16))**1.7
+            if  np.isnan(perm_g):
+                perm.append(0)
+            else:
+                perm.append(perm_g)
+   
+    return perm
 """
-
-
+æ=perm_g1(SS,CC)
+print('æ')
+print(æ)
+print(len(æ))
+"""
+def perm_gm1(x,k):
+    SGR=[]
+    perm=[]
+    for a in range(len(k)):
+        SGR.append(k[a]*0.04)
+    SGR=np.array(SGR)
+    for i in range(len(x)):
+        perm_gm=perm_g1(x,k)[i]*(k[i])+(1-k[i])*(x[i]*0.881) 
+        if perm_gm >=0:
+            perm.append(perm_gm)
+        elif perm_gm<0:
+            perm.append(0)
+    return perm
 
 def perm_g(x):
+    
     f=(0.74*((x-0.04)/(1-0.16-0.04))**1.7)
+    
     return f
 def perm_gm(x,k):
     fm=perm_g(x)*k+(1-k)*x*0.881
+    #fm=perm_g(x)*k+(1-k)*(x-0.881)
     return fm
 
 #f=(0.95*((x-0.04)/(1-0.28-0.2-0.04))**0.6)
@@ -280,14 +353,10 @@ def perm_oil(x):
 
 
 
-
-
+"""
 SG=[0]*len(So)
 for i in range(len(So)):
     SG[i]=1-So[i]
-
-
-    
 
 plt.plot(Sw,Krw, 'bo',label='Krw expérimentale')
 plt.plot(SS,perm_w(SS),'-b',label='fonction Krw')
@@ -297,9 +366,8 @@ plt.ylabel('Krw')
 plt.legend()
 plt.show()
 
-CC=[1]*len(SS)
-CC0=[0]*len(SS)
-"""
+
+
 plt.plot(So,Kro, 'ro',label='Kro expérimentale')
 plt.plot(SS,perm_o(SS,CC),'-r',label='fonction Kro')
 plt.xlabel('So')
@@ -318,11 +386,15 @@ plt.show()
 
 #############################################################################
 #-------------------------comparaison eclips Krg -------------------------
+
 plt.plot(sgg,krgg, '-b',label='Krg eclips')
 #plt.plot(sgg20,sgg20,'-k',label='Krg miscible')
 plt.plot(sgg,perm_gm(sgg,kmmis20),'-k',label='Krg miscible')
+plt.plot(sgg,perm_gm1(sgg,kmmis20),'--k',label='Krg miscible nv')
 plt.plot(sgg,perm_g(sgg),'-g',label='Krg immiscible')
+plt.plot(sgg,perm_gm1(sgg,kmmis),'--g',label='Krg immiscible nv')
 plt.plot(sgg,perm_gm(sgg,km),'-r',label='fonction Krg')
+plt.plot(sgg,perm_gm1(sgg,km),'--r',label='fonction Krg nv')
 plt.plot(sgg[51],krgg[51], '*k',label='Krg à 6323 psi')
 plt.plot(sgg[80],krgg[80], '*r',label='Krg à 5897 psi')
 plt.xlabel('Sg')
@@ -336,8 +408,11 @@ plt.show()
 plt.plot(sgg20,krgg20, '-b',label='Krg eclips')
 #plt.plot(sgg20,sgg20,'-k',label='Krg miscible')
 plt.plot(sgg20,perm_gm(sgg20,kmmis20),'-k',label='Krg miscible')
+plt.plot(sgg20,perm_gm1(sgg20,kmmis20),'--k',label='Krg miscible nv')
 plt.plot(sgg20,perm_g(sgg20),'-g',label='Krg immiscible')
+plt.plot(sgg20,perm_g1(sgg20,kmmis),'--g',label='Krg immiscible nv')
 plt.plot(sgg20,perm_gm(sgg20,km20),'-r',label='fonction Krg')
+plt.plot(sgg20,perm_gm1(sgg20,km20),'--r',label='fonction Krg nv')
 plt.plot(sgg20[51],krgg20[51], '*k',label='Krg à 6323 psi')
 plt.plot(sgg20[153],krgg20[153], '*r',label='Krg à 4947 psi')
 plt.xlabel('Sg')
@@ -348,6 +423,7 @@ plt.axis([0, 1., 0, 1.])
 plt.show()
 
 #-------------------------comparaison eclips Kro -------------------------
+
 plt.plot(soo,kroo, '-b',label='Kro eclips')
 plt.plot(soo,perm_om(soo,km),'-y',label='fonction Kro')
 plt.plot(soo,perm_om(soo,kmmis20),'-k',label='Kro miscible')
@@ -379,7 +455,9 @@ plt.title("565m du puits d'injection")
 plt.legend()
 plt.axis([0, 1., 0, 1.])
 plt.show()
+"""
 
+"""
 ##############################################################################
 #-------------------------RELATIVE PERMIABILITY CURVE-------------------------
 ##############################################################################
@@ -423,7 +501,7 @@ def fg(krg,kro,vg,vo,MOBW,k):
 def F(x,xx,vg,vo,k):
     A=[]
     for i in range(len(x)):
-        A.append(1/(1+((perm_om(x,k)[i]*vg)/(perm_gm(xx,k)[i]*vo))))
+        A.append(1/(1+((perm_om(x,k)[i]*vg)/(perm_gm1(xx,k)[i]*vo))))
     return A
 
 def FC1(krg,kro,vg,vo,MOBW,k,cg,co):
@@ -453,17 +531,7 @@ def M0(mo,mg):
 def fractionl_flow_f(x,k,mo,mg):
     a=1/(1+((1-S(x,k)-0.16)**2.4/(M0(mo,mg,k)*S(x,k)**1.7)))
     return a
-M01=[1]*len(SS)
-M10=[10]*len(SS)
 
-CCmuo=[0.1]*len(SS)
-CCmuo=np.array(CCmuo)
-CCmug=[0.05]*len(SS)
-CCmug=np.array(CCmug)
-CCmobw=[0]*len(SS)
-CCmobw=np.array(CCmobw)
-CC=np.array(CC)
-CC0=np.array(CC0)
 """
 #############################################################################
 plt.plot(sgg,fg(krgg,kroo,mug,muo,mobw,km),'-r',label='fg 3 phase (eclips perméabilité) ')
@@ -481,9 +549,9 @@ plt.show()
 
 
 plt.plot(sgg,FFF(soo,sgg,mug,muo,mobw,km),'-b',label='fonction fg 3 phases')
-plt.plot(sgg,F(soo,sgg,mug,muo,km),'-g',label='fonction fg 2 phases')
-plt.plot(sgg[51],F(soo,sgg,mug,muo,km)[51],'*k',label='fg à 6323 psi')
-plt.plot(sgg[80],F(soo,sgg,mug,muo,km)[80],'*r',label='fg à 5897 psi')
+##plt.plot(sgg,F(soo,sgg,mug,muo,km),'-g',label='fonction fg 2 phases')
+##plt.plot(sgg[51],F(soo,sgg,mug,muo,km)[51],'*k',label='fg à 6323 psi')
+##plt.plot(sgg[80],F(soo,sgg,mug,muo,km)[80],'*r',label='fg à 5897 psi')
 plt.xlabel('Sg')
 plt.ylabel('fg')
 plt.title("424m du puits d'injection")
@@ -505,15 +573,36 @@ plt.axis([0, 1., 0, 1.])
 plt.show()
 
 plt.plot(sgg20,FFF(soo20,sgg20,mug20,muo20,mobw20,km20),'-b',label='fonction fg 3 phases')
-plt.plot(sgg20,F(soo20,sgg20,mug20,muo20,km20),'-g',label='fonction fg 2 phases')
-plt.plot(sgg20[51],F(soo20,sgg20,mug20,muo20,km20)[51],'*k',label='fg à 6323 psi')
-plt.plot(sgg20[153],F(soo20,sgg20,mug20,muo20,km20)[153],'*r',label='fg à 4947 psi')
+##plt.plot(sgg20,F(soo20,sgg20,mug20,muo20,km20),'-g',label='fonction fg 2 phases')
+##plt.plot(sgg20[51],F(soo20,sgg20,mug20,muo20,km20)[51],'*k',label='fg à 6323 psi')
+##plt.plot(sgg20[153],F(soo20,sgg20,mug20,muo20,km20)[153],'*r',label='fg à 4947 psi')
 plt.xlabel('Sg')
 plt.ylabel('fg')
 plt.title("565m du puits d'injection")
 plt.legend()
 plt.axis([0, 1., 0, 1.])
 plt.show()
+
+
+"""
+##############################################################################
+##---------------------------fg-----------------------------------------------
+
+"""
+print(CC)
+print(CC05)
+print(CC0)
+
+plt.plot(SS,F(1-SS,SS,0.0396,0.1150,CC),'-g',label='fonction fg 2 phases k=1')
+plt.plot(SS,F(1-SS,SS,0.0396,0.1150,CC05),'-b',label='fonction fg 2 phases k=0.5')
+plt.plot(SS,F(1-SS,SS,0.0396,0.1150,CC0),'-y',label='fonction fg 2 phases k=0')
+plt.xlabel('Sg')
+plt.ylabel('fg')
+plt.title("debit fractionnaire   k=1  k=0.5")
+plt.legend()
+plt.axis([0, 1., 0, 1.])
+plt.show()
+
 """
 #############################################################################
 #----------------------------------FC1---------------------------------------
@@ -532,16 +621,48 @@ def cc1TD(Sg,c1g,c1o):
     for i in range(len(SS)):
         A.append(Sg[i]*c1g+c1o-Sg[i]*c1o)
     return A
-plt.plot(cc1TD(SS,0.82,0.73),fC1(1-SS,SS,0.05,0.1,CC,0.82,0.73),'-b',label='fonction Fco2 424mk')
+#plt.rcParams["figure.figsize"] = (20,3)
+plt.figure(figsize=(7,7))
+plt.plot(cc1TD(SS,0.82,0.73),fC1(1-SS,SS,0.0396,0.115,CC,0.82,0.73),'-b',label="ligne de racordement d'injection")
+plt.plot(cc1TD(SS,0.91,0.7),fC1(1-SS,SS,0.0396,0.115,CC,0.91,0.7),'-y',label="ligne de racordement initial")
+plt.plot(cc1TD(SS,0.91,0.7),fC1(1-SS,SS,0.0396,0.115,CC0,0.91,0.7),'--y',label="ligne de racordement initial")
+plt.plot(cc1TD(SS,0.91,0.7),fC1(1-SS,SS,0.0396,0.115,CC05,0.91,0.7),'*y',label="ligne de racordement initial")
+
 #plt.plot(cc120,FC1(krgg20,kroo20,mug20,muo20,mobw20,km20,c1g20,c1o20),'-g',label='fonction Fco2 565m')
-plt.plot([0,1],[0,1],'-k')
+plt.plot([0,2],[0,2],'-k')
+plt.plot([0.68, 1.5], [0.725, 1.5],'-k',clip_on=False,linewidth=1)
+v1=(1.5-0.725)/(1.5-0.68)
+plt.plot([0.75, 1.5], [0.89, 1.5],'-k',clip_on=False,linewidth=1)
+v2=(1.5-0.89)/(1.5-0.75)
 #plt.plot(cc120[51],FC1(soo20,sgg20,mug20,muo20,km20,c1o20,c1g20)[51],'*k',label='FC1 à 6323 psi')
 #plt.plot(cc120[153],FC1(soo20,sgg20,mug20,muo20,km20,c1o20,c1g20)[153],'*r',label='FC1 à 4947 psi')
-plt.xlabel('CO2')
-plt.ylabel('Fco2')
-plt.title("565m du puits d'injection")
+plt.xlabel('CCH4')
+plt.ylabel('Fc1')
+plt.title("debit fractionnaire de CH4")
 plt.legend()
 plt.axis([0, 1., 0, 1.])
 plt.show()
 
+################################################################################
+"""
+def format_axes(fig):
+    for i, ax in enumerate(fig.axes):
+        ax.text(0.5, 0.5, "ax%d" % (i+1), va="center", ha="center")
+        ax.tick_params(labelbottom=False, labelleft=False)
 
+fig = plt.figure(constrained_layout=True)
+
+gs = GridSpec(3, 3, figure=fig)
+ax1 = fig.add_subplot(gs[0, :])
+# identical to ax1 = plt.subplot(gs.new_subplotspec((0, 0), colspan=3))
+ax2 = fig.add_subplot(gs[1, :-1])
+ax2 = fig.add_artist(lines.Line2D([0, 1], [0, 1]))
+ax3 = fig.add_subplot(gs[1:, -1])
+ax4 = fig.add_subplot(gs[-1, 0])
+ax5 = fig.add_subplot(gs[-1, -2])
+
+fig.suptitle("GridSpec")
+format_axes(fig)
+
+plt.show()
+"""
