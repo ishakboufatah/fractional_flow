@@ -101,42 +101,85 @@ def fC1_2v(sg,vg,vo,cg,co):
 ##############################################################################
 #                               EPIRIMENT SCAL
 ##############################################################################
+       
 
+#Gas-Oil OMJ-323 Sample 4
+ng=3.5
+no=5.7
+Sgr=0.0
+Krg0=0.7274
+Sg0=0.789
+Sr=0.211
+Sor=0.121
+Swc=0.09
+
+"""
+#  Gas-Oil OMG-832 Sample 3
+ng=3.4
+no=10.5
+Sgr=0.00588367
+Krg0=0.2571
+Sg0=0.2883
+Sr=0.71758367
+Sor=0.4877
+Swc=0.224
+
+#  Gas-Oil OMG-832 Sample 14
+ng=2.5
+no=7
+Sgr=0.0267816
+Krg0=0.5
+Sg0=0.3523
+Sr=0.6744816
+Sor=0.24
+Swc=0.4077
+
+#  Gas-Oil OMG-832 MOY
+ng=2.95
+no=8.75
+Sgr=0.016332635
+Krg0=0.37855
+Sg0=0.3203
+Sr=0.696032635
+Sor=0.36385
+Swc=0.31585
+"""
 def Kr_oil_G(Sg):
     a=[]
     for value in Sg:
-        if value<0.789:
-            a.append(1*((1-value-0.211)/(1-0.211))**5) #0.0483
-        elif value>=0.789:
+        if value<(Sg0):
+            a.append(1*((1-value-Sor)/(1-Sor-Sgr))**no) #0.0483
+        elif value>=(Sg0):
             a.append(0)
     return a
 
 def Kr_oil_GV(Sg):  
-    if Sg<0.789:
-        a=(1*((1-Sg-0.211)/(1-0.211))**5)
-    elif Sg>=0.789:
+    if Sg<Sg0:
+        a=(1*((1-Sg-Sor)/(1-Sor))**no)
+    elif Sg>=Sg0:
         a=(0)
     return a
+
 
 def Kr_GAS(Sg):
     a=[]
     for value in Sg:
         #print(value)
-        if value<=0.0483:
+        if value<=Sgr:
             a.append(0)
-        elif 0.0483<value<=0.79:
-            a.append(0.7274*((value-0.0483)/(1-0.26))**3.4) #0.7274
-        elif value>0.79:
+        elif Sgr<value<=Sg0:
+            a.append(Krg0*((value-Sgr)/(1-Sr))**ng) #0.7274
+        elif value>Sg0:
             a.append(np.nan)
         #print(a)
     return a
 
 def Kr_GASV(Sg):
-    if Sg<=0.0483:
+    if Sg<=Sgr:
         a=(0)
-    elif 0.0483<Sg<=0.79:
-        a=(0.7274*((Sg-0.0483)/(1-0.26))**3.4)
-    elif Sg>0.79:
+    elif Sgr<Sg<=Sg0:
+        a=(Krg0*((Sg-Sgr)/(1-Sr))**ng)
+    elif Sg>Sg0:
         a=np.nan 
     return a
 #####################################################################
@@ -146,16 +189,16 @@ def Kr_GASV(Sg):
 def FG(Sg,vg,vo):
     A=[]
     for i in range(len(Sg)):
-        if Sg[i]<=0.79:
+        if Sg[i]<=Sg0:
             A.append(1/(1+((Kr_oil_G(Sg)[i]*vg)/(Kr_GAS(Sg)[i]*vo))))
-        elif Sg[i]>0.79:
+        elif Sg[i]>Sg0:
             A.append(1)
     return A
 
 def FGv(Sg,vg,vo):
-    if Sg<=0.79:
+    if Sg<=Sg0:
         A=(1/(1+((Kr_oil_GV(Sg)*vg)/(Kr_GASV(Sg)*vo))))
-    elif Sg>0.79:
+    elif Sg>Sg0:
         A=(1)
     return A
 #######################################################################
@@ -168,10 +211,10 @@ def CC1TD(Sg,c1g,c1o):
     for i in range(len(Sg)):
         #A.append(Sg[i]*c1g+c1o-Sg[i]*c1o)
         #A.append(Sg[i]*(c1g-c1o)+c1o)
-        A.append(Sg[i]*(c1g-c1o)+c1o+c1o*0.09)
+        A.append(Sg[i]*(c1g-c1o)+c1o+c1o*Swc)
     return A
 def SGv(C1_2,c1g,c1o):
-    A=((C1_2-c1o+0.09*c1o)/(c1g-c1o))
+    A=((C1_2-c1o+Swc*c1o)/(c1g-c1o))
     return A
 
 def FC1_2(sg,vg,vo,cg,co):
