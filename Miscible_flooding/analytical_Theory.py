@@ -73,7 +73,7 @@ plt.show()
 fig, ax1 = plt.subplots()
 color = 'tab:blue'
 #ax1.plot(SG_OMG_832_14,KrO_OMG_832_14, 'bo',label='Kro expérimentale ')
-ax1.plot(SG,KrO, 'bo',label='Kro expérimentale ')
+#ax1.plot(SG,KrO, 'bo',label='Kro expérimentale ')
 
 
 xx=[0]*len(SS)
@@ -89,7 +89,7 @@ ax2.set_ylabel('Krg', color=color)
 ax2.axis([0, 1., 0, 1.])
 
 #ax2.plot(SG_OMG_832_14,KrG_OMG_832_14, 'ro',label='Krg expérimentale ')
-ax2.plot(SG,KrG, 'ro',label='Krg expérimentale ')
+#ax2.plot(SG,KrG, 'ro',label='Krg expérimentale ')
 #ax2.plot(Sg1,Krg1,'ro')
 ax2.plot(SS,Kr_GAS(SS),'-r',label=' fonction Krg')
 ax2.tick_params(axis='y', labelcolor=color)
@@ -115,32 +115,35 @@ plt.show()
 #                             Fractional Flux of C1-2
 #######################################################################
 #    FC1_2(sg,vg,vo,cg,co):  cc1TD(Sg,c1g,c1o):
+    
    
+#########################################################################
+#------------------  Gas-Oil OMJ-323 Sample 4   -----------------------
+#------------------      GAS injection    ------------------------
+#########################################################################  
+"""
 plt.figure(figsize=(7,7))
-plt.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
 
-plt.plot(cc1TD(SS,0.76,0.605),FC1_2(SS,0.02,0.233,0.76,0.605),'-r',label='Fc1-2 M1 ')
-plt.plot(cc1TD(SS,0.74,0.615),FC1_2(SS,0.02,0.233,0.74,0.615),'-y',label='Fc1-2 M2 ')
-plt.plot(cc1TD(SS,0.72,0.62),FC1_2(SS,0.02,0.233,0.72,0.62),'-g',label='Fc1-2 M3 ')
+plt.plot(cc1TD(SS,0.9,0.59),FC1_2(SS,0.02,0.233,0.9,0.59),'-y',label='Fc1-2 injection tie line ')
+plt.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
 
 
 #plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
-YM1=FC1_2v(Sgv(0.625,0.76,0.605),0.02,0.233,0.76,0.605)
-YM2=FC1_2v(Sgv(0.6725,0.74,0.615),0.02,0.233,0.74,0.615)
-YM3=FC1_2v(Sgv(0.685,0.72,0.62),0.02,0.233,0.72,0.62)
 
-YM4=FC1_2v(Sgv(0.64,0.72,0.62),0.02,0.233,0.72,0.62)
-YM5=FC1_2v(Sgv(0.618,0.79,0.6),0.02,0.233,0.79,0.6)
 
-#plt.plot([0.98,0.64,0.618,0.39],[0.98,YM4,YM5,0.39],'-r',linewidth=1,label='Solution Path ' )
+YM5=FC1_2v(Sgv(0.803,0.9,0.59),0.02,0.233,0.9,0.59)
+YM4=FC1_2v(Sgv(0.675,0.79,0.6),0.02,0.233,0.79,0.6)
 
-v1=(0.98-YM4)/(0.98-0.64)
-v2=(YM4-YM5)/(0.64-0.618)
-v3=(YM5-0.39)/(0.618-0.39)
+plt.plot([0.98,0.803,0.675,0.39],[0.98,YM5,YM4,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.803,0.675],[YM5,YM4],'-r',linewidth=1,label='Solution Path ' )
 
-print("v1=" , v1)     #1.050758093470597
-print("v2=" , v2)     #1.0318271389302103
-print("v3=" , v3)     #0.921237066506721
+v1=(0.98-YM5)/(0.98-0.803)
+v2=(YM5-YM4)/(0.803-0.675)
+v3=(YM4-0.39)/(0.675-0.39)
+
+print("v1=" , v1)     #0.4520347221881165
+print("v2=" , v2)     #0.9226005250564254
+print("v3=" , v3)     #1.3750771472473013
 plt.plot(0.39,0.39,'*k',label='I ')
 plt.plot(0.98,0.98,'ok',label='J ')
 
@@ -153,20 +156,206 @@ plt.plot(0.98,0.98,'ok',label='J ')
 
 
 plt.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
-plt.plot([0.65, 1.985], [0.7451, 1.985],'-k',linewidth=0.3) #,clip_on=False
-plt.plot([0.64, 1.985], [0.701, 1.985],'-k',linewidth=0.3) #,clip_on=False
-plt.plot([0.64, 1.985], [0.69, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.65, 1.985], [0.76, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.64, 1.985], [0.826, 1.985],'-k',linewidth=0.3) #,clip_on=False
 
-plt.plot([0.62, 1.985], [0.585, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.5698, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.5817, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+plt.xlabel('Cc1-2')
+plt.ylabel('Fc1-2')
+plt.title("flux fractionnaire de psudocomposé C1-2 à 220 BARSG")
+plt.legend()
+plt.axis([0.35, 1,0.35, 1])
+plt.show()    
+"""   
+   
+#########################################################################
+#------------------  Gas-Oil OMJ-323 Sample 4   -----------------------
+#------------------      17 % GPL injection    ------------------------
+#########################################################################  
+"""
+plt.figure(figsize=(7,7))
+plt.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
+
+#plt.plot(cc1TD(SS,0.76,0.605),FC1_2(SS,0.02,0.233,0.76,0.605),'-r',label='Fc1-2 M1 ')
+#plt.plot(cc1TD(SS,0.74,0.615),FC1_2(SS,0.02,0.233,0.74,0.615),'-y',label='Fc1-2 M2 ')
+plt.plot(cc1TD(SS,0.72,0.62),FC1_2(SS,0.02,0.233,0.72,0.62),'-g',label='Fc1-2 passant par M3 ')
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+
+
+
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+YM1=FC1_2v(Sgv(0.625,0.76,0.605),0.02,0.233,0.76,0.605)
+YM2=FC1_2v(Sgv(0.675,0.74,0.615),0.02,0.233,0.74,0.615)
+YM3=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+
+YM4=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+YM5=FC1_2v(Sgv(0.6415,0.79,0.6),0.02,0.233,0.79,0.6)
+
+plt.plot([0.83,0.7,0.6415,0.39],[0.83,YM4,YM5,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.7,0.6415],[YM4,YM5],'-r',linewidth=1,label='Solution Path ' )
+
+v1=(0.83-YM4)/(0.83-0.7)
+v2=(YM4-YM5)/(0.7-0.6415)
+v3=(YM5-0.39)/(0.6415-0.39)
+
+
+
+
+
+
+print("v1=" , v1)     #0.846153846153846
+print("v2=" , v2)     #0.9949938518055673
+print("v3=" , v3)     #1.0806873147887648
+plt.plot(0.39,0.39,'*k',label='I ')
+plt.plot(0.83,0.83,'ok',label='J ')
+
+#plt.plot([0.625],[YM1],'*r',label='M1' )
+#plt.plot([0.675],[YM2],'*y',label='M2' )
+plt.plot([0.7],[YM3],'*g',label='M3' )
+
+
+#plt.plot([0.68],[0.68],'*b',label='PP' )
+
+
+plt.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
+plt.plot([0.65, 1.985], [0.76, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.64, 1.985], [0.73, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.64, 1.985], [0.7118, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.64, 1.985], [0.698, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.621, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+plt.plot([0.6, 1.985], [0.59, 1.985],'-k',linewidth=0.3) #,clip_on=False
 plt.plot([0.6, 1.985], [0.5817, 1.985],'-k',linewidth=0.3) #,clip_on=False
 #plt.plot([0.62, 1.985], [0.62, 1.985],'-k',linewidth=0.3) #,clip_on=False
 plt.xlabel('Cc1-2')
-plt.ylabel('fc1-2')
+plt.ylabel('Fc1-2')
 plt.title("flux fractionnaire de psudocomposé C1-2 à 220 BARSG")
 plt.legend()
-plt.axis([0.37, 1.,0.37, 1.])
+plt.axis([0.35,0.9,0.35, 0.9])
 plt.show()
 
+"""
+
+#########################################################################
+#------------------  Gas-Oil OMJ-323 MOY   -----------------------
+#------------------      GAS injection    ------------------------
+#########################################################################  
+
+plt.figure(figsize=(7,7))
+
+plt.plot(cc1TD(SS,0.9,0.59),FC1_2(SS,0.02,0.233,0.9,0.59),'-y',label='Fc1-2 injection tie line ')
+plt.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+
+
+YM5=FC1_2v(Sgv(0.77,0.9,0.59),0.02,0.233,0.9,0.59)
+YM4=FC1_2v(Sgv(0.64,0.79,0.6),0.02,0.233,0.79,0.6)
+
+plt.plot([0.98,0.77,0.64,0.39],[0.98,YM5,YM4,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.77,0.64],[YM5,YM4],'-r',linewidth=1,label='Solution Path ' )
+
+v1=(0.98-YM5)/(0.98-0.77)
+v2=(YM5-YM4)/(0.77-0.64)
+v3=(YM4-0.39)/(0.64-0.39)
+
+print("v1=" , v1)     #0.3809523809523808
+print("v2=" , v2)     #0.8821621745713428
+print("v3=" , v3)     #1.5812756692229017
+plt.plot(0.39,0.39,'*k',label='I ')
+plt.plot(0.98,0.98,'ok',label='J ')
+
+#plt.plot([0.62],[YM1],'*r',label='M1' )
+#plt.plot([0.6725],[YM2],'*y',label='M2' )
+#plt.plot([0.685],[YM3],'*g',label='M3' )
+
+
+#plt.plot([0.68],[0.68],'*b',label='PP' )
+
+
+plt.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
+plt.plot([0.6, 1.985], [0.749, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.64, 1.985], [0.88, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+plt.plot([0.6, 1.985], [0.586, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.5917, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+plt.xlabel('Cc1-2')
+plt.ylabel('Fc1-2')
+plt.title("flux fractionnaire de psudocomposé C1-2 à 220 BARSG")
+plt.legend()
+plt.axis([0.35, 1,0.35, 1])
+plt.show()    
+   
+   
+
+#########################################################################
+#------------------  Gas-Oil OMG-832 MOY   -----------------------
+#------------------      17 % GPL injection    ------------------------
+######################################################################### 
+
+
+plt.figure(figsize=(7,7))
+plt.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
+
+#plt.plot(cc1TD(SS,0.76,0.605),FC1_2(SS,0.02,0.233,0.76,0.605),'-r',label='Fc1-2 M1 ')
+#plt.plot(cc1TD(SS,0.74,0.615),FC1_2(SS,0.02,0.233,0.74,0.615),'-y',label='Fc1-2 M2 ')
+plt.plot(cc1TD(SS,0.72,0.62),FC1_2(SS,0.02,0.233,0.72,0.62),'-g',label='Fc1-2 passant par M3 ')
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+YM1=FC1_2v(Sgv(0.625,0.76,0.605),0.02,0.233,0.76,0.605)
+YM2=FC1_2v(Sgv(0.675,0.74,0.615),0.02,0.233,0.74,0.615)
+YM3=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+
+YM4=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+YM5=FC1_2v(Sgv(0.617,0.79,0.6),0.02,0.233,0.79,0.6)
+
+plt.plot([0.83,0.7,0.617,0.39],[0.83,YM4,YM5,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.7,0.617],[YM4,YM5],'-r',linewidth=1,label='Solution Path ' )
+
+v1=(0.83-YM4)/(0.83-0.7)
+v2=(YM4-YM5)/(0.7-0.617)
+v3=(YM5-0.39)/(0.617-0.39)
+
+print("v1=" , v1)     #0.846153846153846
+print("v2=" , v2)     #0.9900975088481873
+print("v3=" , v3)     #1.091726461522469
+plt.plot(0.39,0.39,'*k',label='I ')
+plt.plot(0.83,0.83,'ok',label='J ')
+
+#plt.plot([0.625],[YM1],'*r',label='M1' )
+#plt.plot([0.675],[YM2],'*y',label='M2' )
+plt.plot([0.7],[YM3],'*g',label='M3' )
+
+
+#plt.plot([0.68],[0.68],'*b',label='PP' )
+
+
+plt.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
+plt.plot([0.6, 1.985], [0.749, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.6, 1.985], [0.728, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.6, 1.985], [0.7038, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.679, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.621, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+plt.plot([0.59, 1.987], [0.5855, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.6, 1.985], [0.5817, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.62, 1.985], [0.62, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.xlabel('Cc1-2')
+plt.ylabel('Fc1-2')
+plt.title("flux fractionnaire de psudocomposé C1-2 à 220 BARSG")
+plt.legend()
+#plt.axis([0.585, 0.8,0.585, 0.8])
+plt.axis([0.35, 0.85,0.35, 0.85])
+plt.show()
 
 #######################################################################
 
@@ -438,73 +627,52 @@ plt.show()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#########################################################################
+#------------------  Gas-Oil OMJ-323 Sample 4   -----------------------
+#------------------      GAS injection    ------------------------
+#########################################################################
 """
-
 fig = plt.figure(constrained_layout=False)
 #fig.figsize=(10,10)
 fig.set_size_inches(20, 12.8)
 gs = GridSpec(3, 4, figure=fig)
 ax1 = fig.add_subplot(gs[0, -4])
-ax1.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.1185,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
 
-ax1.plot(cc1TD(SS,0.76,0.605),FC1_2(SS,0.1185,0.233,0.76,0.605),'-r',label='Fc1-2 M1 ')
-ax1.plot(cc1TD(SS,0.74,0.615),FC1_2(SS,0.1185,0.233,0.74,0.615),'-y',label='Fc1-2 M2 ')
-ax1.plot(cc1TD(SS,0.72,0.62),FC1_2(SS,0.1185,0.233,0.72,0.62),'-g',label='Fc1-2 M3 ')
+
+  
+
+
+ax1.plot(cc1TD(SS,0.9,0.59),FC1_2(SS,0.02,0.233,0.9,0.59),'-y',label='Fc1-2 injection tie line ')
+ax1.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
 
 
 #plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
-YM1=FC1_2v(Sgv(0.625,0.76,0.605),0.1185,0.233,0.76,0.605)
-YM2=FC1_2v(Sgv(0.6725,0.74,0.615),0.1185,0.233,0.74,0.615)
-YM3=FC1_2v(Sgv(0.685,0.72,0.62),0.1185,0.233,0.72,0.62)
 
-YM4=FC1_2v(Sgv(0.64,0.72,0.62),0.1185,0.233,0.72,0.62)
-YM5=FC1_2v(Sgv(0.618,0.79,0.6),0.1185,0.233,0.79,0.6)
 
-ax1.plot([0.98,0.64,0.618,0.39],[0.98,YM4,YM5,0.39],'-r',linewidth=1,label='Solution Path ' )
+YM5=FC1_2v(Sgv(0.803,0.9,0.59),0.02,0.233,0.9,0.59)
+YM4=FC1_2v(Sgv(0.675,0.79,0.6),0.02,0.233,0.79,0.6)
 
-v1=(0.98-YM4)/(0.98-0.64)
-v2=(YM4-YM5)/(0.64-0.618)
-v3=(YM5-0.39)/(0.618-0.39)
+ax1.plot([0.98,0.803,0.675,0.39],[0.98,YM5,YM4,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.803,0.675],[YM5,YM4],'-r',linewidth=1,label='Solution Path ' )
 
-print("v1=" , v1)     #1.050758093470597
-print("v2=" , v2)     #1.0318271389302103
-print("v3=" , v3)     #0.921237066506721
+v1=(0.98-YM5)/(0.98-0.803)
+v2=(YM5-YM4)/(0.803-0.675)
+v3=(YM4-0.39)/(0.675-0.39)
+
+print("v1=" , v1)     #0.4520347221881165
+print("v2=" , v2)     #0.9226005250564254
+print("v3=" , v3)     #1.3750771472473013   1/v3=0.7272319244
 ax1.plot(0.39,0.39,'*k',label='I ')
 ax1.plot(0.98,0.98,'ok',label='J ')
 
-ax1.plot([0.62],[YM1],'*r',label='M1' )
-ax1.plot([0.6725],[YM2],'*y',label='M2' )
-ax1.plot([0.685],[YM3],'*g',label='M3' )
-
-
-#plt.plot([0.68],[0.68],'*b',label='PP' )
 
 
 ax1.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
-ax1.plot([0.65, 1.985], [0.7451, 1.985],'-k',linewidth=0.3) #,clip_on=False
-ax1.plot([0.64, 1.985], [0.701, 1.985],'-k',linewidth=0.3) #,clip_on=False
-ax1.plot([0.64, 1.985], [0.69, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.65, 1.985], [0.76, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.64, 1.985], [0.826, 1.985],'-k',linewidth=0.3) #,clip_on=False
 
-plt.plot([0.62, 1.985], [0.585, 1.985],'-k',linewidth=0.3) #,clip_on=False
-plt.plot([0.6, 1.985], [0.5817, 1.985],'-k',linewidth=0.3) #,clip_on=False
-#plt.plot([0.62, 1.985], [0.62, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.6, 1.985], [0.5698, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.6, 1.985], [0.5817, 1.985],'-k',linewidth=0.3) #,clip_on=False
 
 
 ax1.set_xlabel('Cc1-2')
@@ -514,40 +682,51 @@ ax1.legend()
 ax1.axis([0., 1.,0., 1.])
 ax2 = fig.add_subplot(gs[0, -3])
 #ax2.set_size_inches(5, 5)
-img = mpimg.imread('GPLINJECTIONPP_PY.png')
+img = mpimg.imread('gasinjectionmoy_py.png')
 plt.imshow(img)
 
 ax2.tick_params(labelbottom=False, labelleft=False)
 ax3 = fig.add_subplot(gs[0, -2:])
+
+C1_2_J=0.98         ; C1_2gas_J=0.98    ; C1_2huil_J=0
+C1_2_s1=0.803        ; C1_2gas_s1=0.9   ; C1_2huil_s1=0.59
+C1_2_s2=0.675        ; C1_2gas_s2=0.79   ; C1_2huil_s2=0.6
+C1_2_I=0.39          ; C1_2gas_I=0       ; C1_2huil_I=0.39
 def C1_2(XD,TD):
     a=[]
     for i in range(len(XD)):
         if XD[i]<=(v1*TD):
-            a.append(0.88)
+            a.append(C1_2_J)
         elif (v1*TD)<XD[i]<=(v2*TD):
-            a.append(0.74)
-        elif XD[i]>(v2*TD):
-            a.append(0.4)
+            a.append(C1_2_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2_I)
     return a
 def C1_2gas(XD,TD):
     a=[]
     for i in range(len(XD)):
         if XD[i]<=(v1*TD):
-            a.append(0.88)
+            a.append(C1_2gas_J)
         elif (v1*TD)<XD[i]<=(v2*TD):
-            a.append(0.77)
-        elif XD[i]>(v2*TD):
-            a.append(0.)
+            a.append(C1_2gas_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2gas_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2gas_I)
     return a
 def C1_2huil(XD,TD):
     a=[]
     for i in range(len(XD)):
         if XD[i]<=(v1*TD):
-            a.append(0.)
+            a.append(C1_2huil_J)
         elif (v1*TD)<XD[i]<=(v2*TD):
-            a.append(0.66)
-        elif XD[i]>(v2*TD):
-            a.append(0.4)
+            a.append(C1_2huil_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2huil_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2huil_I)
     return a
 def So(XD,TD):
     a=[]
@@ -562,18 +741,17 @@ def So(XD,TD):
 #Sg*c1g+So*c1o=cc1........(1-So-Swc)*c1g+So*c1o=cc1.......c1g+(-So-Swc)*c1g+So*c1o=cc1
 #So(c1o-c1g)=cc1-c1g+Swc*c1g.........So=(cc1-c1g+Swc*c1g)/(c1o-c1g)  So=(cc1+(Swc-1)*c1g)/(c1o-c1g)   So=(cc1-0.91*c1g)/(c1o-c1g)   A=((C1_2-c1o+0.09*c1o)/(c1g-c1o))
 XD = np.arange(0., 1., 0.001)
-ax3.plot(XD,C1_2(XD,0.1),'-g',label='C1_2')    
-ax3.plot(XD,C1_2gas(XD,0.1),'--r',label='C1_2gas') 
-ax3.plot(XD,C1_2huil(XD,0.1),'--b',label='C1_2huile')
-ax3.plot(XD,So(XD,0.1),'--y',label='So')    
+ax3.plot(XD,C1_2(XD,0.5),'-g',label='C1_2')    
+ax3.plot(XD,C1_2gas(XD,0.5),'--r',label='C1_2gas') 
+ax3.plot(XD,C1_2huil(XD,0.5),'--b',label='C1_2huile')
+ax3.plot(XD,So(XD,0.5),'--y',label='So')    
 ax3.legend()
 ax3.axis([0., 1.,0., 1.0])
 ax3.set_xlabel('Position adimentionel XD')
 ax3.set_ylabel('profile')
-ax3.set_title("Profile de composition à TD=0.1 (injection de 12% de GPL point de mélange en PP)")
-#ax2 = fig.add_artist(lines.Line2D([0, 1], [0, 1]))
+ax3.set_title("Profile de composition à TD=0.5 ")#ax2 = fig.add_artist(lines.Line2D([0, 1], [0, 1]))
 ax4 = fig.add_subplot(gs[1:, -3])
-ax4.plot([0,1],[0,1],'-y' ,label='huile produit')
+ax4.plot([0,0.6951799,0.80648162],[0,0.7272319244,1],'-y' ,label='huile produit')
 ax4.legend()
 ax4.axis([0., 1.,0., 1.])
 ax4.invert_xaxis()
@@ -584,15 +762,17 @@ ax4.set_title("production d'huile")
 ax6 = fig.add_subplot(gs[-2:, -2:])
 ax6.plot([0,1],[0,1/v1],'-k' ,label='v1')
 ax6.plot([0,1],[0,1/v2],'--k' ,label='v2')
-ax6.text(0.3, 0.8, "gaz injecté", va="center", ha="center")
-ax6.text(0.8, 0.4, "huile en place", va="center", ha="center")
+ax6.plot([0,1],[0,1/v3],'-k' ,label='v3',linewidth=3)
+ax6.text(0.2, 0.8, "gaz injecté", va="center", ha="center")
+ax6.text(0.8, 0.3, "huile en place", va="center", ha="center")
+ax6.text(0.65, 0.7, "2 phases huile + gaz", va="center", ha="center")
 ax6.text(0.5, 0.98, "diagramme distance-temps", va="center", ha="center")
 ax6.legend()
 ax6.axis([0., 1.,0., 1.])
 ax6.set_xlabel("position adimentionel XD")
 ax6.set_ylabel('temps adimentionel TD')
 #ax6.set_title("diagramme distance-temps ")
-fig.suptitle("Injection 12% GPL à 220 BARG (point de mélange en PP)")
+fig.suptitle("Injection GAS assoscié à 220 BARG  RF= 80.65 %")
 #format_axes(fig)
 
 plt.show()
@@ -608,6 +788,504 @@ plt.show()
 
 
 
+
+
+
+
+#########################################################################
+#------------------  Gas-Oil OMJ-323 Sample 4   -----------------------
+#------------------      17 % GPL injection    ------------------------
+#########################################################################
+"""
+fig = plt.figure(constrained_layout=False)
+#fig.figsize=(10,10)
+fig.set_size_inches(20, 12.8)
+gs = GridSpec(3, 4, figure=fig)
+ax1 = fig.add_subplot(gs[0, -4])
+
+
+  
+
+
+ax1.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
+
+ax1.plot(cc1TD(SS,0.72,0.62),FC1_2(SS,0.02,0.233,0.72,0.62),'-g',label='Fc1-2 passant par M3 ')
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+
+
+
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+YM1=FC1_2v(Sgv(0.625,0.76,0.605),0.02,0.233,0.76,0.605)
+YM2=FC1_2v(Sgv(0.675,0.74,0.615),0.02,0.233,0.74,0.615)
+YM3=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+
+YM4=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+YM5=FC1_2v(Sgv(0.6415,0.79,0.6),0.02,0.233,0.79,0.6)
+
+ax1.plot([0.83,0.7,0.6415,0.39],[0.83,YM4,YM5,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.7,0.6415],[YM4,YM5],'-r',linewidth=1,label='Solution Path ' )
+
+v1=(0.83-YM4)/(0.83-0.7)
+v2=(YM4-YM5)/(0.7-0.6415)
+v3=(YM5-0.39)/(0.6415-0.39)
+
+print("v1=" , v1)     #0.846153846153846
+print("v2=" , v2)     #0.9949938518055673
+print("v3=" , v3)     #1.0806873147887648   1/v3=0.925337
+ax1.plot(0.39,0.39,'*k',label='I ')
+ax1.plot(0.83,0.83,'ok',label='J ')
+
+#plt.plot([0.625],[YM1],'*r',label='M1' )
+#plt.plot([0.675],[YM2],'*y',label='M2' )
+ax1.plot([0.7],[YM3],'*g',label='M3' )
+
+ax1.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
+ax1.plot([0.65, 1.985], [0.76, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.64, 1.985], [0.73, 1.985],'-k',linewidth=0.3) #,clip_on=False
+#plt.plot([0.64, 1.985], [0.7118, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.64, 1.985], [0.698, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.6, 1.985], [0.621, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+ax1.plot([0.6, 1.985], [0.59, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.6, 1.985], [0.5817, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+
+ax1.set_xlabel('Cc1-2')
+ax1.set_ylabel('Fc1-2')
+ax1.set_title("flux fractionnaire de pseudo-composé C1-2 à 220 BARG")
+ax1.legend()
+ax1.axis([0., 1.,0., 1.])
+ax2 = fig.add_subplot(gs[0, -3])
+#ax2.set_size_inches(5, 5)
+img = mpimg.imread('gplinjectionOMJ-323_py.png')
+plt.imshow(img)
+
+ax2.tick_params(labelbottom=False, labelleft=False)
+ax3 = fig.add_subplot(gs[0, -2:])
+
+C1_2_J=0.83         ; C1_2gas_J=0.83    ; C1_2huil_J=0
+C1_2_s1=0.7        ; C1_2gas_s1=0.72   ; C1_2huil_s1=0.62
+C1_2_s2=0.6415        ; C1_2gas_s2=0.79   ; C1_2huil_s2=0.6
+C1_2_I=0.39          ; C1_2gas_I=0       ; C1_2huil_I=0.39
+def C1_2(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2_I)
+    return a
+def C1_2gas(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2gas_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2gas_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2gas_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2gas_I)
+    return a
+def C1_2huil(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2huil_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2huil_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2huil_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2huil_I)
+    return a
+def So(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        a.append((C1_2(XD,TD)[i]-C1_2gas(XD,TD)[i])/(C1_2huil(XD,TD)[i]-C1_2gas(XD,TD)[i]))
+    return a
+#1.7      0.2
+#1.05    x    x=0.724
+#0.7     y    y=0.133    y*z+x=0.03607+0.724 =0.76007      
+#0.85       0.2
+#1.15      z=0.271
+#Sg*c1g+So*c1o=cc1........(1-So-Swc)*c1g+So*c1o=cc1.......c1g+(-So-Swc)*c1g+So*c1o=cc1
+#So(c1o-c1g)=cc1-c1g+Swc*c1g.........So=(cc1-c1g+Swc*c1g)/(c1o-c1g)  So=(cc1+(Swc-1)*c1g)/(c1o-c1g)   So=(cc1-0.91*c1g)/(c1o-c1g)   A=((C1_2-c1o+0.09*c1o)/(c1g-c1o))
+XD = np.arange(0., 1., 0.001)
+ax3.plot(XD,C1_2(XD,0.5),'-g',label='C1_2')    
+ax3.plot(XD,C1_2gas(XD,0.5),'--r',label='C1_2gas') 
+ax3.plot(XD,C1_2huil(XD,0.5),'--b',label='C1_2huile')
+ax3.plot(XD,So(XD,0.5),'--y',label='So')    
+ax3.legend()
+ax3.axis([0., 1.,0., 1.0])
+ax3.set_xlabel('Position adimentionel XD')
+ax3.set_ylabel('profile')
+ax3.set_title("Profile de composition à TD=0.5 ")#ax2 = fig.add_artist(lines.Line2D([0, 1], [0, 1]))
+ax4 = fig.add_subplot(gs[1:, -3])
+ax4.plot([0,0.90926,0.963544],[0,0.925337,1],'-y' ,label='huile produit')
+ax4.legend()
+ax4.axis([0., 1.,0., 1.])
+ax4.invert_xaxis()
+ax4.set_xlabel("Récuperation d'huile")
+ax4.set_ylabel('temps adimentionel TD')
+ax4.set_title("production d'huile")
+#ax5 = fig.add_subplot(gs[1:, -3])
+ax6 = fig.add_subplot(gs[-2:, -2:])
+ax6.plot([0,1],[0,1/v1],'-k' ,label='v1')
+ax6.plot([0,1],[0,1/v2],'--k' ,label='v2')
+ax6.plot([0,1],[0,1/v3],'-k' ,label='v3',linewidth=3)
+ax6.text(0.2, 0.8, "gaz injecté", va="center", ha="center")
+ax6.text(0.8, 0.3, "huile en place", va="center", ha="center")
+ax6.text(0.65, 0.7, "2 phases huile + gaz", va="center", ha="center")
+ax6.text(0.5, 0.98, "diagramme distance-temps", va="center", ha="center")
+ax6.legend()
+ax6.axis([0., 1.,0., 1.])
+ax6.set_xlabel("position adimentionel XD")
+ax6.set_ylabel('temps adimentionel TD')
+#ax6.set_title("diagramme distance-temps ")
+fig.suptitle("Injection 17% GPL à 220 BARG  RF= 96.35 %")
+#format_axes(fig)
+
+plt.show()
+
+
+"""
+
+
+
+
+
+
+
+#########################################################################
+#------------------  Gas-Oil OMG-832 MOY   -----------------------
+#------------------      GAS injection    ------------------------
+#########################################################################
+
+fig = plt.figure(constrained_layout=False)
+#fig.figsize=(10,10)
+fig.set_size_inches(20, 12.8)
+gs = GridSpec(3, 4, figure=fig)
+ax1 = fig.add_subplot(gs[0, -4])
+
+
+  
+
+
+ax1.plot(cc1TD(SS,0.9,0.59),FC1_2(SS,0.02,0.233,0.9,0.59),'-y',label='Fc1-2 injection tie line ')
+ax1.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+
+
+YM5=FC1_2v(Sgv(0.77,0.9,0.59),0.02,0.233,0.9,0.59)
+YM4=FC1_2v(Sgv(0.64,0.79,0.6),0.02,0.233,0.79,0.6)
+
+ax1.plot([0.98,0.77,0.64,0.39],[0.98,YM5,YM4,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.77,0.64],[YM5,YM4],'-r',linewidth=1,label='Solution Path ' )
+
+v1=(0.98-YM5)/(0.98-0.77)
+v2=(YM5-YM4)/(0.77-0.64)
+v3=(YM4-0.39)/(0.64-0.39)
+
+print("v1=" , v1)     #0.3809523809523808
+print("v2=" , v2)     #0.8821621745713428
+print("v3=" , v3)     #1.5812756692229017  1/v3=0.6324
+ax1.plot(0.39,0.39,'*k',label='I ')
+ax1.plot(0.98,0.98,'ok',label='J ')
+
+
+
+
+ax1.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
+ax1.plot([0.6, 1.985], [0.749, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.64, 1.985], [0.88, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+ax1.plot([0.6, 1.985], [0.586, 1.985],'-k',linewidth=0.3) #,clip_on=False
+ax1.plot([0.6, 1.985], [0.5917, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+
+ax1.set_xlabel('Cc1-2')
+ax1.set_ylabel('Fc1-2')
+ax1.set_title("flux fractionnaire de pseudo-composé C1-2 à 220 BARG")
+ax1.legend()
+ax1.axis([0., 1.,0., 1.])
+ax2 = fig.add_subplot(gs[0, -3])
+#ax2.set_size_inches(5, 5)
+img = mpimg.imread('gasinjectionmoy_py.png')
+plt.imshow(img)
+
+ax2.tick_params(labelbottom=False, labelleft=False)
+ax3 = fig.add_subplot(gs[0, -2:])
+
+C1_2_J=0.98         ; C1_2gas_J=0.98    ; C1_2huil_J=0
+C1_2_s1=0.77        ; C1_2gas_s1=0.9   ; C1_2huil_s1=0.59
+C1_2_s2=0.64        ; C1_2gas_s2=0.79   ; C1_2huil_s2=0.6
+C1_2_I=0.39          ; C1_2gas_I=0       ; C1_2huil_I=0.39
+def C1_2(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2_I)
+    return a
+def C1_2gas(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2gas_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2gas_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2gas_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2gas_I)
+    return a
+def C1_2huil(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2huil_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2huil_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2huil_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2huil_I)
+    return a
+def So(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        a.append((C1_2(XD,TD)[i]-C1_2gas(XD,TD)[i])/(C1_2huil(XD,TD)[i]-C1_2gas(XD,TD)[i]))
+    return a
+#1.7      0.2
+#1.05    x    x=0.724
+#0.7     y    y=0.133    y*z+x=0.03607+0.724 =0.76007      
+#0.85       0.2
+#1.15      z=0.271
+#Sg*c1g+So*c1o=cc1........(1-So-Swc)*c1g+So*c1o=cc1.......c1g+(-So-Swc)*c1g+So*c1o=cc1
+#So(c1o-c1g)=cc1-c1g+Swc*c1g.........So=(cc1-c1g+Swc*c1g)/(c1o-c1g)  So=(cc1+(Swc-1)*c1g)/(c1o-c1g)   So=(cc1-0.91*c1g)/(c1o-c1g)   A=((C1_2-c1o+0.09*c1o)/(c1g-c1o))
+XD = np.arange(0., 1., 0.001)
+ax3.plot(XD,C1_2(XD,0.5),'-g',label='C1_2')    
+ax3.plot(XD,C1_2gas(XD,0.5),'--r',label='C1_2gas') 
+ax3.plot(XD,C1_2huil(XD,0.5),'--b',label='C1_2huile')
+ax3.plot(XD,So(XD,0.5),'--y',label='So')    
+ax3.legend()
+ax3.axis([0., 1.,0., 1.0])
+ax3.set_xlabel('Position adimentionel XD')
+ax3.set_ylabel('profile')
+ax3.set_title("Profile de composition à TD=0.5 ")#ax2 = fig.add_artist(lines.Line2D([0, 1], [0, 1]))
+ax4 = fig.add_subplot(gs[1:, -3])
+ax4.plot([0,0.51697546,0.69648722],[0,0.6324,1],'-y' ,label='huile produit')
+ax4.legend()
+ax4.axis([0., 1.,0., 1.])
+ax4.invert_xaxis()
+ax4.set_xlabel("Récuperation d'huile")
+ax4.set_ylabel('temps adimentionel TD')
+ax4.set_title("production d'huile")
+#ax5 = fig.add_subplot(gs[1:, -3])
+ax6 = fig.add_subplot(gs[-2:, -2:])
+ax6.plot([0,1],[0,1/v1],'-k' ,label='v1')
+ax6.plot([0,1],[0,1/v2],'--k' ,label='v2')
+ax6.plot([0,1],[0,1/v3],'-k' ,label='v3',linewidth=3)
+ax6.text(0.2, 0.8, "gaz injecté", va="center", ha="center")
+ax6.text(0.8, 0.3, "huile en place", va="center", ha="center")
+ax6.text(0.65, 0.7, "2 phases huile + gaz", va="center", ha="center")
+ax6.text(0.5, 0.98, "diagramme distance-temps", va="center", ha="center")
+ax6.legend()
+ax6.axis([0., 1.,0., 1.])
+ax6.set_xlabel("position adimentionel XD")
+ax6.set_ylabel('temps adimentionel TD')
+#ax6.set_title("diagramme distance-temps ")
+fig.suptitle("Injection GAS assoscié à 220 BARG  RF= 69.65 %")
+#format_axes(fig)
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################################################################
+#------------------  Gas-Oil OMG-832 Sample 3   -----------------------
+#------------------      17 % GPL injection    ------------------------
+######################################################################### 
+
+fig = plt.figure(constrained_layout=False)
+#fig.figsize=(10,10)
+fig.set_size_inches(20, 12.8)
+gs = GridSpec(3, 4, figure=fig)
+ax1 = fig.add_subplot(gs[0, -4])
+
+
+  
+
+
+ax1.plot(cc1TD(SS,0.79,0.6),FC1_2(SS,0.02,0.233,0.79,0.6),'--b',label='Fc1-2 initial tie line ')
+
+#plt.plot(cc1TD(SS,0.76,0.605),FC1_2(SS,0.02,0.233,0.76,0.605),'-r',label='Fc1-2 M1 ')
+#plt.plot(cc1TD(SS,0.74,0.615),FC1_2(SS,0.02,0.233,0.74,0.615),'-y',label='Fc1-2 M2 ')
+ax1.plot(cc1TD(SS,0.72,0.62),FC1_2(SS,0.02,0.233,0.72,0.62),'-g',label='Fc1-2 M3 ')
+
+
+#plt.plot(cc1TD(SS,0.785,0.675),fC1_2(SS,0.1185,0.2448,0.785,0.675),'--g',label='fc1-2 M5 ')
+YM1=FC1_2v(Sgv(0.625,0.76,0.605),0.02,0.233,0.76,0.605)
+YM2=FC1_2v(Sgv(0.675,0.74,0.615),0.02,0.233,0.74,0.615)
+YM3=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+
+YM4=FC1_2v(Sgv(0.7,0.72,0.62),0.02,0.233,0.72,0.62)
+YM5=FC1_2v(Sgv(0.617,0.79,0.6),0.02,0.233,0.79,0.6)
+
+plt.plot([0.83,0.7,0.617,0.39],[0.83,YM4,YM5,0.39],'-r',linewidth=1,label='Solution Path ' )
+#plt.plot([0.7,0.617],[YM4,YM5],'-r',linewidth=1,label='Solution Path ' )
+
+v1=(0.83-YM4)/(0.83-0.7)
+v2=(YM4-YM5)/(0.7-0.617)
+v3=(YM5-0.39)/(0.617-0.39)
+
+print("v1=" , v1)     #0.846153846153846
+print("v2=" , v2)     #0.9900975088481873
+print("v3=" , v3)     #1.091726461522469   1/v3=0.91598036
+plt.plot(0.39,0.39,'*k',label='I ')
+plt.plot(0.83,0.83,'ok',label='J ')
+
+plt.plot([0.7],[YM3],'*g',label='M3' )
+
+
+
+plt.plot([0.0,2],[0.0,2],'-k' )#,clip_on=False)
+plt.plot([0.6, 1.985], [0.749, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.679, 1.985],'-k',linewidth=0.3) #,clip_on=False
+plt.plot([0.6, 1.985], [0.621, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+plt.plot([0.59, 1.987], [0.5855, 1.985],'-k',linewidth=0.3) #,clip_on=False
+
+
+ax1.set_xlabel('Cc1-2')
+ax1.set_ylabel('Fc1-2')
+ax1.set_title("flux fractionnaire de pseudo-composé C1-2 à 220 BARG")
+ax1.legend()
+ax1.axis([0., 1.,0., 1.])
+ax2 = fig.add_subplot(gs[0, -3])
+#ax2.set_size_inches(5, 5)
+img = mpimg.imread('gplinjectionOMJ-323_py.png')
+plt.imshow(img)
+
+ax2.tick_params(labelbottom=False, labelleft=False)
+ax3 = fig.add_subplot(gs[0, -2:])
+
+C1_2_J=0.83         ; C1_2gas_J=0.83    ; C1_2huil_J=0
+C1_2_s1=0.7        ; C1_2gas_s1=0.72   ; C1_2huil_s1=0.62
+C1_2_s2=0.617        ; C1_2gas_s2=0.79   ; C1_2huil_s2=0.6
+C1_2_I=0.39          ; C1_2gas_I=0       ; C1_2huil_I=0.39
+def C1_2(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2_I)
+    return a
+def C1_2gas(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2gas_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2gas_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2gas_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2gas_I)
+    return a
+def C1_2huil(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        if XD[i]<=(v1*TD):
+            a.append(C1_2huil_J)
+        elif (v1*TD)<XD[i]<=(v2*TD):
+            a.append(C1_2huil_s1)
+        elif (v2*TD)<XD[i]<=(v3*TD):
+            a.append(C1_2huil_s2)
+        elif XD[i]>(v3*TD):
+            a.append(C1_2huil_I)
+    return a
+def So(XD,TD):
+    a=[]
+    for i in range(len(XD)):
+        a.append((C1_2(XD,TD)[i]-C1_2gas(XD,TD)[i])/(C1_2huil(XD,TD)[i]-C1_2gas(XD,TD)[i]))
+    return a
+#1.7      0.2
+#1.05    x    x=0.724
+#0.7     y    y=0.133    y*z+x=0.03607+0.724 =0.76007      
+#0.85       0.2
+#1.15      z=0.271
+#Sg*c1g+So*c1o=cc1........(1-So-Swc)*c1g+So*c1o=cc1.......c1g+(-So-Swc)*c1g+So*c1o=cc1
+#So(c1o-c1g)=cc1-c1g+Swc*c1g.........So=(cc1-c1g+Swc*c1g)/(c1o-c1g)  So=(cc1+(Swc-1)*c1g)/(c1o-c1g)   So=(cc1-0.91*c1g)/(c1o-c1g)   A=((C1_2-c1o+0.09*c1o)/(c1g-c1o))
+XD = np.arange(0., 1., 0.001)
+ax3.plot(XD,C1_2(XD,0.5),'-g',label='C1_2')    
+ax3.plot(XD,C1_2gas(XD,0.5),'--r',label='C1_2gas') 
+ax3.plot(XD,C1_2huil(XD,0.5),'--b',label='C1_2huile')
+ax3.plot(XD,So(XD,0.5),'--y',label='So')    
+ax3.legend()
+ax3.axis([0., 1.,0., 1.0])
+ax3.set_xlabel('Position adimentionel XD')
+ax3.set_ylabel('profile')
+ax3.set_title("Profile de composition à TD=1 ")#ax2 = fig.add_artist(lines.Line2D([0, 1], [0, 1]))
+ax4 = fig.add_subplot(gs[1:, -3])
+ax4.plot([0,0.8879837,0.9602033],[0,0.91598036,1],'-y' ,label='huile produit')
+ax4.legend()
+ax4.axis([0., 1.,0., 1.])
+ax4.invert_xaxis()
+ax4.set_xlabel("Récuperation d'huile")
+ax4.set_ylabel('temps adimentionel TD')
+ax4.set_title("production d'huile")
+#ax5 = fig.add_subplot(gs[1:, -3])
+ax6 = fig.add_subplot(gs[-2:, -2:])
+ax6.plot([0,1],[0,1/v1],'-k' ,label='v1')
+ax6.plot([0,1],[0,1/v2],'--k' ,label='v2')
+ax6.plot([0,1],[0,1/v3],'-k' ,label='v3',linewidth=3)
+ax6.text(0.2, 0.8, "gaz injecté", va="center", ha="center")
+ax6.text(0.8, 0.3, "huile en place", va="center", ha="center")
+ax6.text(0.65, 0.7, "2 phases huile + gaz", va="center", ha="center")
+ax6.text(0.5, 0.98, "diagramme distance-temps", va="center", ha="center")
+ax6.legend()
+ax6.axis([0., 1.,0., 1.])
+ax6.set_xlabel("position adimentionel XD")
+ax6.set_ylabel('temps adimentionel TD')
+#ax6.set_title("diagramme distance-temps ")
+fig.suptitle("Injection 17% GPL à 220 BARG  RF= 96.02 %")
+#format_axes(fig)
+
+plt.show()
 
 
 

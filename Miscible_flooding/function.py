@@ -102,7 +102,7 @@ def fC1_2v(sg,vg,vo,cg,co):
 #                               EPIRIMENT SCAL
 ##############################################################################
        
-
+"""
 #Gas-Oil OMJ-323 Sample 4
 ng=3.5
 no=5.7
@@ -113,7 +113,7 @@ Sr=0.211
 Sor=0.121
 Swc=0.09
 
-"""
+
 #  Gas-Oil OMG-832 Sample 3
 ng=3.4
 no=10.5
@@ -133,7 +133,7 @@ Sg0=0.3523
 Sr=0.6744816
 Sor=0.24
 Swc=0.4077
-
+"""
 #  Gas-Oil OMG-832 MOY
 ng=2.95
 no=8.75
@@ -143,7 +143,7 @@ Sg0=0.3203
 Sr=0.696032635
 Sor=0.36385
 Swc=0.31585
-"""
+
 def Kr_oil_G(Sg):
     a=[]
     for value in Sg:
