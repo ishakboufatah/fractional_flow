@@ -39,14 +39,14 @@ SG=get_value(SCAL2['D'],10)
 KrG=get_value(SCAL2['F'],10)
 KrO=get_value(SCAL2['E'],10)
 
-print(SG)
+#print(SG)
 
 #--------------------- Gas-Oil OMG-832 Sample 3---------------------------
 SG_OMG_832_3=get_value(OMG_832_3['D'],10) 
 KrG_OMG_832_3=get_value(OMG_832_3['F'],10)
 KrO_OMG_832_3=get_value(OMG_832_3['E'],10)
 
-print(SG_OMG_832_3)
+#print(SG_OMG_832_3)
 
 
 #--------------------- Gas-Oil OMG-832 Sample 14---------------------------
@@ -54,6 +54,6 @@ SG_OMG_832_14=get_value(OMG_832_14['D'],10)
 KrG_OMG_832_14=get_value(OMG_832_14['F'],10)
 KrO_OMG_832_14=get_value(OMG_832_14['E'],10)
 
-print(SG_OMG_832_14)
+#print(SG_OMG_832_14)
 ########################################################################
 #print(Sw)

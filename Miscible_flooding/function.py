@@ -153,12 +153,24 @@ def Kr_oil_G(Sg):
             a.append(0)
     return a
 
-def Kr_oil_GV(Sg):  
+def Kr_oil_(Sg):
+    a=[]
+    for value in Sg:
+        a.append(1*((value-Sor)/(1-Sor-Sgr))**no) #0.0483
+        #if value<(1-Sg0):
+         #   a.append(1*((value-Sor)/(1-Sor-Sgr))**no) #0.0483
+        #elif value>=(1-Sg0):
+        #    a.append(0)
+    return a
+
+def Kr_oil_GV(Sg):     #So=1-Sg-Swr-Sgr
     if Sg<Sg0:
         a=(1*((1-Sg-Sor)/(1-Sor))**no)
     elif Sg>=Sg0:
         a=(0)
     return a
+
+
 
 
 def Kr_GAS(Sg):
